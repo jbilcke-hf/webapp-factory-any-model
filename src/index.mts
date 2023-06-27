@@ -26,8 +26,6 @@ const timeoutInSec = 3 * 60
 console.log("timeout set to 3 minutes")
 
 app.use(express.static("public"))
- 
-const maxParallelRequests = 1
 
 const pending: {
   total: number;
@@ -62,16 +60,6 @@ app.get("/app", async (req, res) => {
     res.end()
     return
   }
-  // naive implementation: we say we are out of capacity
-  if (pending.queue.length >= maxParallelRequests) {
-    res.write("sorry, max nb of parallel requests reached")
-    res.end()
-    return
-  }
-  // alternative approach: kill old queries
-  // while (pending.queue.length > maxParallelRequests) {
-  //   endRequest(pending.queue[0], 'max nb of parallel request reached')
-  // }
 
   const id = `${pending.total++}`
   console.log(`new request ${id}`)
