@@ -59,6 +59,10 @@ app.get("/app", async (req, res) => {
 
   console.log('model:', model)
 
+  const endpoint = `${req.query.endpoint || ''}`
+
+  console.log('endpoint:', endpoint)
+
   if (`${req.query.prompt}`.length < minPromptSize) {
     res.write(`prompt too short, please enter at least ${minPromptSize} characters`)
     res.end()

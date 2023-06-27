@@ -25,8 +25,18 @@
               type="text"
               name="modelDraft"
               x-model="modelDraft"
+              placeholder="OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5"
               class="input input-bordered w-full rounded text-lg text-stone-500 bg-stone-200 font-mono"
             />
+            <!--
+            <input
+              type="text"
+              name="endpointDraft"
+              x-model="endpointDraft"
+              placeholder="Endpoint URL (disabled by default)"
+              class="input input-bordered w-full rounded text-lg text-stone-500 bg-stone-200 font-mono"
+            />
+            -->
             <textarea
               name="promptDraft"
               x-model="promptDraft"
@@ -36,7 +46,7 @@
             ></textarea>
             <button
               class="btn disabled:text-stone-400"
-              @click="open = true, prompt = promptDraft, model = modelDraft, state = state === 'stopped' ? 'loading' : 'stopped'"
+              @click="open = true, prompt = promptDraft, model = modelDraft, endpoint = endpointDraft, state = state === 'stopped' ? 'loading' : 'stopped'"
               :class="promptDraft.length < minPromptSize ? 'btn-neutral' : state === 'stopped' ? 'btn-accent' : 'btn-warning'"
               :disabled="promptDraft.length < minPromptSize"
             >
@@ -58,7 +68,7 @@
           class="border-none w-full h-screen"
           :src="!open
             ? '/placeholder.html'
-            : `/app?model=${encodeURIComponent(model)}&prompt=${encodeURIComponent(prompt)}`
+            : `/app?model=${encodeURIComponent(model)}&endpoint=${encodeURIComponent(endpoint)}&prompt=${encodeURIComponent(prompt)}`
           "></iframe>
       </div>
     </div>
@@ -95,13 +105,14 @@ function humanFileSize(bytes, si=false, dp=1) {
   return bytes.toFixed(dp) + ' ' + units[u];
 }
 function app() {
-  const defaultModel = 'OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5'
   return {
     open: false,
     promptDraft: new URLSearchParams(window.location.search).get('prompt') || 'A simple page to compute the bmi, using kg and meters',
     prompt: '',
-    modelDraft: defaultModel,
-    model: defaultModel,
+    modelDraft: '',
+    model: '',
+    endpoint: '',
+    endpointDraft: '',
     size: 0,
     minPromptSize: 16, // if you change this, you will need to also change in src/index.mts
     timeoutInSec: 10, // time before we determine something went wrong
