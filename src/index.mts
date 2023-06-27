@@ -55,6 +55,10 @@ app.get("/debug", (req, res) => {
 
 app.get("/app", async (req, res) => {
 
+  const model = `${req.query.model || 'OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5'}`
+
+  console.log('model:', model)
+
   if (`${req.query.prompt}`.length < minPromptSize) {
     res.write(`prompt too short, please enter at least ${minPromptSize} characters`)
     res.end()
@@ -96,7 +100,7 @@ ${prefix}`
   try {
     let result = ''
     for await (const output of hf.textGenerationStream({
-      model: 'OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5',
+      model,
       inputs: finalPrompt,
       parameters: { max_new_tokens: 1024 }
     })) {
