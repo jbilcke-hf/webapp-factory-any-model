@@ -1,6 +1,6 @@
 ---
 title: Webapp Factory (any model)
-emoji: 🏭🧙
+emoji: 🏭
 colorFrom: brown
 colorTo: red
 sdk: docker
