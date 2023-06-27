@@ -9,9 +9,9 @@ const app = express()
 const port = 7860
 
 const minPromptSize = 16 // if you change this, you will need to also change in public/index.html
-const timeoutInSec = 3 * 60
+const timeoutInSec = 15 * 60
 
-console.log("timeout set to 3 minutes")
+console.log("timeout set to 15 minutes")
 
 app.use(express.static("public"))
 
@@ -120,5 +120,5 @@ Generate the following: ${req.query.prompt}
   
 })
 
-app.listen(port, () => { console.log(`Open http://localhost:${port}/?prompt=a%20pong%20game%20clone%20in%20HTML,%20made%20using%20the%20canvas`) })
+app.listen(port, () => { console.log(`Open http://localhost:${port}/`) })
 

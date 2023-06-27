@@ -18,7 +18,7 @@ Ready to be used in a Hugging Face Space.
 
 
 ```
-http://localhost:7860/?prompt=a%20simple%20hello%20world%20page
+http://localhost:7860/?prompt=A%20simple%20page%20to%20compute%20the%20BMI%20(use%20SI%20units)
 ```
 
 # Installation

@@ -42,7 +42,7 @@
               name="promptDraft"
               x-model="promptDraft"
               rows="10"
-              placeholder="A simple page to compute the bmi, using kg and meters"
+              placeholder="A simple page to compute the BMI (use SI units)"
               class="input input-bordered w-full rounded text-lg text-stone-500 bg-stone-300 font-mono h-48"
             ></textarea>
             <button
@@ -108,7 +108,7 @@ function humanFileSize(bytes, si=false, dp=1) {
 function app() {
   return {
     open: false,
-    promptDraft: new URLSearchParams(window.location.search).get('prompt') || 'A simple page to compute the bmi, using kg and meters',
+    promptDraft: new URLSearchParams(window.location.search).get('prompt') || 'A simple page to compute the BMI (use SI units)',
     prompt: '',
     modelDraft: '',
     model: '',
