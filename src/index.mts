@@ -5,18 +5,6 @@ import { daisy } from "./daisy.mts"
 
 const hf = new HfInference(process.env.HF_API_TOKEN)
 
-// define the CSS and JS dependencies
-const css = [
-  "/css/daisyui@2.6.0.css",
-].map(item => `<link href="${item}" rel="stylesheet" type="text/css"/>`)
-.join("")
-
-const script = [
-  "/js/alpinejs@3.12.2.js",
-  "/js/tailwindcss@3.3.2.js"
-].map(item => `<script src="${item}"></script>`)
-.join("")
-
 const app = express()
 const port = 7860
 
@@ -74,7 +62,7 @@ app.get("/app", async (req, res) => {
 
   pending.queue.push(id)
 
-  const prefix = `<html><head>${css}${script}`
+  const prefix = `<html><head><link href="https://cdn.jsdelivr.net/npm/daisyui@3.1.6/dist/full.css" rel="stylesheet" type="text/css" /><script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script><script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script><title>Generated content</title><body`
   res.write(prefix)
 
   req.on("close", function() {
@@ -99,7 +87,7 @@ Generate the following: ${req.query.prompt}
 - No need to write code comments, so please make the code compact (short function names etc)
 - Use a central layout by wrapping everything in a \`<div class="flex flex-col items-center">\`
 # HTML output
-${prefix}`
+<html><head></head><body`
 
   try {
     let result = ''
